@@ -21,7 +21,7 @@ export default function About() {
               <div className="w-36 aspect-square overflow-hidden sm:w-72 rounded-full bg-linear-to-br from-teal-400 to-violet-500 flex items-center justify-center text-5xl sm:text-6xl font-extrabold text-slate-950 shadow-[0_0_60px_rgba(79,255,232,0.35)]"
                 style={{ fontFamily: "Syne, sans-serif" }}
               >
-                <img className="object-cover w-full h-full object-top scale-120"  src="/profile.jpeg"/>
+                <img className="object-cover w-full h-full object-top scale-120"  src="/profile.png"/>
               </div>
               {/* Inner glow */}
               <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 to-transparent pointer-events-none" />
