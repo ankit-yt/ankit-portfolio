@@ -35,7 +35,7 @@ function Navbar() {
             className="text-xl sm:text-2xl font-extrabold tracking-tight bg-linear-to-r from-teal-400 via-violet-400 to-pink-400 bg-clip-text text-transparent"
             style={{ fontFamily: "Syne, sans-serif" }}
           >
-            AK<span className="text-teal-400">.</span>
+            AJ<span className="text-teal-400">.</span>
           </button>
   
           {/* Desktop links */}

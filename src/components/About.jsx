@@ -21,7 +21,7 @@ export default function About() {
               <div className="w-36 aspect-square overflow-hidden sm:w-72 rounded-full bg-linear-to-br from-teal-400 to-violet-500 flex items-center justify-center text-5xl sm:text-6xl font-extrabold text-slate-950 shadow-[0_0_60px_rgba(79,255,232,0.35)]"
                 style={{ fontFamily: "Syne, sans-serif" }}
               >
-                <img className="object-cover w-full h-full object-top scale-120"  src="/profile.png"/>
+                <img className="object-cover w-full h-full "  src="/profile.png"/>
               </div>
               {/* Inner glow */}
               <div className="absolute inset-0 bg-linear-to-t from-slate-950/60 to-transparent pointer-events-none" />
@@ -61,17 +61,17 @@ export default function About() {
             </h2>
           </Reveal>
 
-          <Reveal delay={0.15}>
-            <p className="text-slate-400 leading-relaxed text-sm sm:text-base">
-              I am a creative editor and designer who focuses on clean, minimal, and professional visuals. I specialise in short-form video editing, poster design, and modern presentation design.
-            </p>
-          </Reveal>
+        <Reveal delay={0.15}>
+  <p className="text-slate-400 leading-relaxed text-sm sm:text-base">
+    Hi, I'm Ankit from Rajasthan. I'm a 21-year-old B.Tech CSE student and a passionate creative professional. I work as a freelance video editor and graphic designer, helping creators and brands turn their ideas into visually engaging and professional content.
+  </p>
+</Reveal>
 
-          <Reveal delay={0.2}>
-            <p className="text-slate-500 leading-relaxed text-sm sm:text-base">
-              My goal is to create visually engaging content that helps creators and brands stand out — combining precision with creativity in every frame, poster, and slide.
-            </p>
-          </Reveal>
+<Reveal delay={0.2}>
+  <p className="text-slate-500 leading-relaxed text-sm sm:text-base">
+    I specialize in short-form and long-form video editing, social media post design, poster and graphic design, and modern PowerPoint presentation design. As a freelancer, my goal is to deliver clean, creative, and high-quality visuals that capture attention and help clients stand out on digital platforms.
+  </p>
+</Reveal>
 
           {/* Stats */}
           {/* <Reveal delay={0.25}>
