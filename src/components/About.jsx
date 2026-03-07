@@ -3,11 +3,11 @@ import { Reveal, useInView } from "../App";
 export default function About() {
   const [ref, visible] = useInView();
 
-  const stats = [
-    { num: "200+", label: "Projects" },
-    { num: "50+",  label: "Clients" },
-    { num: "2+",   label: "Years" },
-  ];
+  // const stats = [
+  //   { num: "200+", label: "Projects" },
+  //   { num: "50+",  label: "Clients" },
+  //   { num: "2+",   label: "Years" },
+  // ];
 
   return (
     <section id="about" className="py-24 sm:py-32 px-6 sm:px-10 lg:px-16">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import PortfolioCard from "./portfolioCard";
+import PortfolioCard from "./PortfolioCard";
 import { Reveal } from "../../App";
 
 
