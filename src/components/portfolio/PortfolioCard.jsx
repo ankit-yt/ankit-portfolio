@@ -20,7 +20,7 @@ export default function PortfolioCard({ item, delay ,setVideoOpen , setUrl}) {
   
   {item.thumbnail ? (
     <img
-      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+      className={`w-full h-full object-cover object-[50%_30%] transition-transform duration-500 group-hover:scale-110`}
       src={item.thumbnail}
       alt="thumbnail"
     />
