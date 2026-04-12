@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 function Navbar() {
-  const NAV_LINKS = ["About", "Skills", "Services", "Portfolio", "Contact"];
+  const NAV_LINKS = ["About", "Skills", "Services", "Portfolio",  "Testimonials","Contact" ,];
    const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
   
@@ -47,7 +47,7 @@ function Navbar() {
                 className="text-xs font-bold tracking-widest uppercase text-slate-400 hover:text-white transition-colors duration-200"
                 style={{ fontFamily: "Syne, sans-serif" }}
               >
-                {l}
+                {l == "Testimonials" ? "Feedbacks" : l}
               </button>
             ))}
             <button

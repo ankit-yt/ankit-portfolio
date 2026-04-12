@@ -117,12 +117,12 @@ export default function Portfolio() {
       className=" py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-white/1 border-t border-white/6"
     >
 
- {modal.open && (
+{modal.open && (
   <div
     onClick={() => setModal({ open: false })}
-    className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-3xl"
+    className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-3xl px-4"
   >
-    <div className="relative mx-2" onClick={(e) => e.stopPropagation()}>
+    <div className="relative w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
       {modal.type === "video" && (
         <>
           {modal.loading && (
@@ -133,28 +133,28 @@ export default function Portfolio() {
               </p>
             </div>
           )}
-          <iframe
-            className="rounded-3xl"
-            width="640"
-            height="360"
-            src={modal.url}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            onLoad={() => setModal((prev) => ({ ...prev, loading: false }))}
-          />
+          {/* 👇 aspect-ratio wrapper makes iframe responsive */}
+          <div className="relative w-full rounded-3xl overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={modal.url}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              onLoad={() => setModal((prev) => ({ ...prev, loading: false }))}
+            />
+          </div>
         </>
       )}
 
       {modal.type === "post" && (
         <img
           src={modal.url}
-          className="w-72 rounded-3xl object-cover"
+          className="w-full max-w-xs mx-auto rounded-3xl object-cover"
         />
       )}
     </div>
 
-    {/* Click outside to close */}
     <div className="absolute inset-0 -z-10" onClick={() => setModal({ open: false })} />
   </div>
 )}

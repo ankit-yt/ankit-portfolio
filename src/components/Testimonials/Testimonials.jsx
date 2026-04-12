@@ -11,7 +11,7 @@ const TESTIMONIALS = [
   initials: "GS",
   from: "from-red-500",
   to: "to-violet-600",
-  text: "I sent Ankit a rough idea for a trading reel and honestly didn’t expect much. The final edit was way better than what I had imagined. The transitions were smooth and the pacing matched the beat perfectly.",
+  text: "Working with this editor has been a game-changer. They put a lot of effort into every frame, and the quality is so high that I rarely need any corrections. They are quick, reliable, and consistently deliver great work. If you're looking for someone to get your project on board and moving fast, this is the person.",
   screenshot: "/testimonials/gymstart.png",
   stars: 5,
 },

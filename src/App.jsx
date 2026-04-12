@@ -51,7 +51,7 @@ export function Reveal({ children, delay = 0, className = "" }) {
   );
 }
 
-export const NAV_LINKS = ["About", "Skills", "Services", "Portfolio", "Contact"];
+export const NAV_LINKS = ["About", "Skills", "Services", "Portfolio", "Contact" ,"testimonials"];
 
 
 export default function App() {
