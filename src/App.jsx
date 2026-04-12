@@ -7,7 +7,7 @@ import About from "./components/About";
 import Skills from "./components/skills/Skills";
 import Services from "./components/services/Services";
 import Portfolio from "./components/portfolio/Portfolio";
-import Testimonials from "./components/Testimonial/Testimonials";
+import Testimonials from "./components/Testimonials/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 

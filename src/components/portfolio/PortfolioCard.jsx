@@ -3,19 +3,20 @@ import { useInView } from "../../App";
 export default function PortfolioCard({ item, delay, openModal }) {
   const [ref, visible] = useInView(0.1);
 
-  const handleClick = () => {
-    if (item.type === "video" || item.type === "post") {
-      openModal({
-        open: true,
-        type: item.type,
-        url: item.url || item.thumbnail,
-      });
-    }
+const handleClick = () => {
+  if (item.type === "video" || item.type === "post") {
+    openModal({
+      open: true,
+      type: item.type,
+      url: item.url || item.thumbnail,
+      loading: item.type === "video", // only show loader for video
+    });
+  }
 
-    if (item.type === "presentation") {
-      window.open(item.url, "_blank");
-    }
-  };
+  if (item.type === "presentation") {
+    window.open(item.url, "_blank");
+  }
+};
 
   return (
     <div
@@ -29,10 +30,17 @@ export default function PortfolioCard({ item, delay, openModal }) {
         transition: "opacity 0.7s ease, transform 0.7s ease, border-color 0.3s",
       }}
     >
-      {/* Thumbnail */}
       <div
         className={`h-48 bg-linear-to-br ${item.bg} flex items-center justify-center relative overflow-hidden`}
       >
+         {item.badge && (
+    <span
+      className={`absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase ${item.badge_bg} text-slate-950 shadow-[0_0_12px_rgba(79,255,232,0.5)]`}
+      style={{ fontFamily: "Syne, sans-serif" }}
+    >
+      {item.badge}
+    </span>
+  )}
         {item.thumbnail ? (
           <img
             src={item.thumbnail}

@@ -5,6 +5,16 @@ import TestiCard from "./TestiCard";
 
 
 const TESTIMONIALS = [
+  {
+  name: "TheGymStart",
+  role: "Gym & Fitness Content Creator",
+  initials: "GS",
+  from: "from-red-500",
+  to: "to-violet-600",
+  text: "I sent Ankit a rough idea for a trading reel and honestly didn’t expect much. The final edit was way better than what I had imagined. The transitions were smooth and the pacing matched the beat perfectly.",
+  screenshot: "/testimonials/gymstart.png",
+  stars: 5,
+},
  {
   name: "Aman Verma",
   role: "Crypto & Trading Content Creator",
@@ -12,6 +22,7 @@ const TESTIMONIALS = [
   from: "from-teal-500",
   to: "to-violet-600",
   text: "I sent Ankit a rough idea for a trading reel and honestly didn’t expect much. The final edit was way better than what I had imagined. The transitions were smooth and the pacing matched the beat perfectly.",
+
   stars: 5,
 },
 {

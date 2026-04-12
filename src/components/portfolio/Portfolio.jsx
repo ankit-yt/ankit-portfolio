@@ -5,23 +5,25 @@ import { Reveal } from "../../App";
 
 const PORTFOLIO_CATS = ["All", "Video Edits", "Poster Designs", "Presentations", "Social Graphics"];
 const PORTFOLIO_ITEMS = [
+ {
+  cat: "Video Edits",
+  type: "video",
+  title: "Fitness | TheGymStart",
+  sub: "Edit 01",
+  url: "https://www.youtube.com/embed/VuVvbSFwpAk?si=ELxZuLxkQC1F-oGM",
+  thumbnail: "/thumbnails/videos/gymstart1.png",
+  badge: "New",
+  badge_bg:"bg-green-400",
+  bg: "from-teal-900/60 to-slate-950",
+  accent: "text-teal-400",
+  emoji: "💪",
+},
   {
     cat: "Video Edits",
     type: "video",
     title: "Trading",
-    sub: "Market Hustle",
-    url: "https://mega.nz/embed/1DUQEYQT#JWci-uYYNyFthi3Lp7-ZtGVTh_dqBl5QG3VW0kbowk0",
-    thumbnail: "/thumbnails/videos/1.png",
-    bg: "from-teal-900/60 to-slate-950",
-    accent: "text-teal-400",
-    emoji: "▶",
-  },
-  {
-    cat: "Video Edits",
-    type: "video",
-    title: "Trading",
-    sub: "Trader Mindset",
-    url: "https://mega.nz/embed/sCMRVKwR#2NCJFqYzjlb1_Xm0iKWXvxHiz7G0gQ0s-jy6Txsji5A",
+    sub: "Edit 02",
+    url: "https://youtube.com/embed/gGeffTDX9oY?si=339gnQTv1HBmAr3M",
     thumbnail: "/thumbnails/videos/3.png",
     position: "100%_20%",
     bg: "from-teal-900/60 to-slate-950",
@@ -32,8 +34,8 @@ const PORTFOLIO_ITEMS = [
     cat: "Video Edits",
     type: "video",
     title: "Bull Run Edit",
-    sub: "Trading Reel",
-    url: "https://mega.nz/embed/JK0FXYgI#L-isaMty64wmCxTgspDn37g443HfqVTEqZScweG79qI",
+    sub: "Edit 03",
+    url: "https://youtube.com/embed/4G_PEKFFZaI?si=r-xQb2uFjZgyYOUp",
     thumbnail: "/thumbnails/videos/2.png",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
@@ -43,10 +45,22 @@ const PORTFOLIO_ITEMS = [
     cat: "Video Edits",
     type: "video",
     title: "Join the Team",
-    sub: "Hiring Campaign",
-    url: "https://mega.nz/embed/wKkDiSia#xiZl3tWY0Pb4MFEDTs0MJwWz1Bs87Qgm45AZL8SkH5A",
+    sub: "Edit 04",
+    url: "https://youtube.com/embed/fYiP_EwDei4?si=SB6shGTCeVM-Reuu",
     thumbnail: "/thumbnails/videos/averixis.png",
     position: "100%_20%",
+    bg: "from-teal-900/60 to-slate-950",
+    accent: "text-teal-400",
+    emoji: "▶",
+  },
+  {
+    cat: "Video Edits",
+    type: "video",
+    title: "Trading",
+    sub: "Edit 05",
+    url: "https://youtube.com/embed/bUcazYqRMdc?si=oTI7BTBZlMFYr4nM",
+    thumbnail: "/thumbnails/videos/1.png",
+    position: "100%_50%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
     emoji: "▶",
@@ -56,7 +70,7 @@ const PORTFOLIO_ITEMS = [
     cat: "Presentations",
     type: "presentation",
     title: "Principles of Maintenance",
-    sub: "Need, Objectives & Characteristics",
+    sub: "Presentation",
     url: "https://www.canva.com/design/DAG38fdmMKk/8rrJIagmN8gt1PmeKWyBSQ/edit",
     thumbnail: "/thumbnails/presentation/1.jpg",
     bg: "from-pink-900/60 to-slate-950",
@@ -68,7 +82,7 @@ const PORTFOLIO_ITEMS = [
   cat: "Social Graphics",
   type: "post",
   title: "Placement Announcement",
-  sub: "PCTE Student Success Post",
+  sub: "Social Poster",
   thumbnail: "/thumbnails/post/insta1.png",
   bg: "from-red-900/60 to-slate-950",
   accent: "text-red-400",
@@ -103,27 +117,45 @@ export default function Portfolio() {
       className=" py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-white/1 border-t border-white/6"
     >
 
-    {modal.open && (
+ {modal.open && (
   <div
     onClick={() => setModal({ open: false })}
     className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-3xl"
   >
-    {modal.type === "video" && (
-      <iframe
-        className="rounded-3xl mx-2"
-        width="640"
-        height="360"
-        src={modal.url}
-        allowFullScreen
-      />
-    )}
+    <div className="relative mx-2" onClick={(e) => e.stopPropagation()}>
+      {modal.type === "video" && (
+        <>
+          {modal.loading && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-slate-950/80 rounded-3xl z-10">
+              <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-teal-400 animate-spin" />
+              <p className="text-xs text-slate-400 tracking-widest uppercase font-bold" style={{ fontFamily: "Syne, sans-serif" }}>
+                Loading...
+              </p>
+            </div>
+          )}
+          <iframe
+            className="rounded-3xl"
+            width="640"
+            height="360"
+            src={modal.url}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            onLoad={() => setModal((prev) => ({ ...prev, loading: false }))}
+          />
+        </>
+      )}
 
-    {modal.type === "post" && (
-      <img
-        src={modal.url}
-        className="w-72 rounded-3xl object-cover"
-      />
-    )}
+      {modal.type === "post" && (
+        <img
+          src={modal.url}
+          className="w-72 rounded-3xl object-cover"
+        />
+      )}
+    </div>
+
+    {/* Click outside to close */}
+    <div className="absolute inset-0 -z-10" onClick={() => setModal({ open: false })} />
   </div>
 )}
 
