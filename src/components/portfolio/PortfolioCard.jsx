@@ -1,77 +1,17 @@
-import { useInView } from "../../App";
-
-export default function PortfolioCard({ item, delay, openModal }) {
-  const [ref, visible] = useInView(0.1);
-
-const handleClick = () => {
-  if (item.type === "video" || item.type === "post") {
-    openModal({
-      open: true,
-      type: item.type,
-      url: item.url || item.thumbnail,
-      loading: item.type === "video", // only show loader for video
-    });
-  }
-
-  if (item.type === "presentation") {
-    window.open(item.url, "_blank");
-  }
-};
-
-  return (
-    <div
-      ref={ref}
-      onClick={handleClick}
-      className={`group relative bg-white/3 border border-white/[0.07] rounded-2xl overflow-hidden cursor-pointer hover:border-white/15 transition-all duration-300 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
-      style={{
-        transitionDelay: `${delay}s`,
-        transition: "opacity 0.7s ease, transform 0.7s ease, border-color 0.3s",
-      }}
-    >
-      <div
-        className={`h-48 bg-linear-to-br ${item.bg} flex items-center justify-center relative overflow-hidden`}
-      >
-         {item.badge && (
-    <span
-      className={`absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase ${item.badge_bg} text-slate-950 shadow-[0_0_12px_rgba(79,255,232,0.5)]`}
-      style={{ fontFamily: "Syne, sans-serif" }}
-    >
-      {item.badge}
-    </span>
-  )}
-        {item.thumbnail ? (
-          <img
-            src={item.thumbnail}
-            alt={item.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            style={{
-              objectPosition: item.position
-                ? item.position.replace("_", " ")
-                : "center",
-            }}
-          />
-        ) : (
-          <span className="text-5xl transition-transform duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            {item.emoji}
-          </span>
-        )}
+import { useInView } from '../Reveal';
+export default function PortfolioCard({ item, index, openModal }) {
+  const [ref, visible] = useInView(.05);
+  const available = Boolean(item.url || item.thumbnail);
+  const Tag = available ? 'button' : 'div';
+  return <article ref={ref} className={`project-card reveal ${visible ? 'is-visible' : ''} project-${item.type}`} style={{ '--reveal-delay': `${Math.min(index*.04,.2)}s` }}>
+    <Tag className="project-trigger" onClick={available ? () => openModal(item) : undefined} aria-label={available ? `Open ${item.title}` : undefined}>
+      <div className="project-artwork">
+        {item.thumbnail ? <img src={item.thumbnail} srcSet={`${item.thumbnail.replace(".webp", "-640.webp")} 640w, ${item.thumbnail} 1280w`} sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1200px) 55vw, 800px" loading="lazy" decoding="async" width="800" height="500" alt={item.title} style={{ objectPosition: item.position?.replace('_',' ') || 'center' }} /> : <div className="project-placeholder"><span>PRODUCT<br />LAUNCH</span><p>POSTER DESIGN / PREVIEW UNAVAILABLE</p></div>}
+        <div className="project-top"><span>{String(index+1).padStart(2,'0')} / {item.cat}</span>{item.badge && <span>{item.badge}</span>}</div>
+        {available && <span className="project-open" aria-hidden="true">{item.type === 'video' ? '▶' : '↗'}</span>}
+        <span className="project-view">{item.type === 'video' ? 'Watch film' : available ? 'View project' : 'Preview unavailable'} <span aria-hidden="true">↗</span></span>
       </div>
-
-      {/* Footer */}
-      <div className="p-4">
-        <p
-          className="text-sm font-bold text-white"
-          style={{ fontFamily: "Syne, sans-serif" }}
-        >
-          {item.title}
-        </p>
-
-        <p className={`text-xs mt-1 ${item.accent}`}>
-          {item.sub}
-        </p>
-      </div>
-    </div>
-  );
+      <div className="project-meta"><h3>{item.title}</h3><span>{item.sub} <span aria-hidden="true">↗</span></span></div>
+    </Tag>
+  </article>;
 }

@@ -1,8 +1,7 @@
-import { useState } from "react";
-import PortfolioCard from "./PortfolioCard";
-import { Reveal } from "../../App";
-
-
+import { useCallback, useState } from 'react';
+import PortfolioCard from './PortfolioCard';
+import ProjectViewer from './ProjectViewer';
+import { Reveal } from '../Reveal';
 const PORTFOLIO_CATS = ["All", "Video Edits", "Poster Designs", "Presentations", "Social Graphics"];
 const PORTFOLIO_ITEMS = [
  {
@@ -11,7 +10,7 @@ const PORTFOLIO_ITEMS = [
   title: "Fitness | TheGymStart",
   sub: "Edit 01",
   url: "https://www.youtube.com/embed/VuVvbSFwpAk?si=ELxZuLxkQC1F-oGM",
-  thumbnail: "/thumbnails/videos/gymstart1.png",
+  thumbnail: "/optimized/gymstart1.webp",
   badge: "New",
   badge_bg:"bg-green-400",
   bg: "from-teal-900/60 to-slate-950",
@@ -24,7 +23,7 @@ const PORTFOLIO_ITEMS = [
     title: "Trading",
     sub: "Edit 02",
     url: "https://youtube.com/embed/gGeffTDX9oY?si=339gnQTv1HBmAr3M",
-    thumbnail: "/thumbnails/videos/3.png",
+    thumbnail: "/optimized/trading3.webp",
     position: "100%_20%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
@@ -36,7 +35,7 @@ const PORTFOLIO_ITEMS = [
     title: "Bull Run Edit",
     sub: "Edit 03",
     url: "https://youtube.com/embed/4G_PEKFFZaI?si=r-xQb2uFjZgyYOUp",
-    thumbnail: "/thumbnails/videos/2.png",
+    thumbnail: "/optimized/bullrun.webp",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
     emoji: "▶",
@@ -47,7 +46,7 @@ const PORTFOLIO_ITEMS = [
     title: "Join the Team",
     sub: "Edit 04",
     url: "https://youtube.com/embed/fYiP_EwDei4?si=SB6shGTCeVM-Reuu",
-    thumbnail: "/thumbnails/videos/averixis.png",
+    thumbnail: "/optimized/averixis.webp",
     position: "100%_20%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
@@ -59,7 +58,7 @@ const PORTFOLIO_ITEMS = [
     title: "Trading",
     sub: "Edit 05",
     url: "https://youtube.com/embed/bUcazYqRMdc?si=oTI7BTBZlMFYr4nM",
-    thumbnail: "/thumbnails/videos/1.png",
+    thumbnail: "/optimized/trading1.webp",
     position: "100%_50%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
@@ -72,7 +71,7 @@ const PORTFOLIO_ITEMS = [
     title: "Principles of Maintenance",
     sub: "Presentation",
     url: "https://www.canva.com/design/DAG38fdmMKk/8rrJIagmN8gt1PmeKWyBSQ/edit",
-    thumbnail: "/thumbnails/presentation/1.jpg",
+    thumbnail: "/optimized/presentation.webp",
     bg: "from-pink-900/60 to-slate-950",
     accent: "text-pink-400",
     emoji: "✦",
@@ -83,7 +82,7 @@ const PORTFOLIO_ITEMS = [
   type: "post",
   title: "Placement Announcement",
   sub: "Social Poster",
-  thumbnail: "/thumbnails/post/insta1.png",
+  thumbnail: "/optimized/placement.webp",
   bg: "from-red-900/60 to-slate-950",
   accent: "text-red-400",
   emoji: "✦"
@@ -101,113 +100,18 @@ const PORTFOLIO_ITEMS = [
 ];
 
 export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState("All");
- const [modal, setModal] = useState({
-  open: false,
-  type: null,
-  url: null
-});
-  const filtered = activeTab === "All"
-    ? PORTFOLIO_ITEMS
-    : PORTFOLIO_ITEMS.filter((i) => i.cat === activeTab);
-
-  return (
-    <section
-      id="portfolio"
-      className=" py-24 sm:py-32 px-6 sm:px-10 lg:px-16 bg-white/1 border-t border-white/6"
-    >
-
-{modal.open && (
-  <div
-    onClick={() => setModal({ open: false })}
-    className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-3xl px-4"
-  >
-    <div className="relative w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
-      {modal.type === "video" && (
-        <>
-          {modal.loading && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-slate-950/80 rounded-3xl z-10">
-              <div className="w-10 h-10 rounded-full border-2 border-white/10 border-t-teal-400 animate-spin" />
-              <p className="text-xs text-slate-400 tracking-widest uppercase font-bold" style={{ fontFamily: "Syne, sans-serif" }}>
-                Loading...
-              </p>
-            </div>
-          )}
-          {/* 👇 aspect-ratio wrapper makes iframe responsive */}
-          <div className="relative w-full rounded-3xl overflow-hidden" style={{ paddingBottom: "56.25%" }}>
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src={modal.url}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              onLoad={() => setModal((prev) => ({ ...prev, loading: false }))}
-            />
-          </div>
-        </>
-      )}
-
-      {modal.type === "post" && (
-        <img
-          src={modal.url}
-          className="w-full max-w-xs mx-auto rounded-3xl object-cover"
-        />
-      )}
-    </div>
-
-    <div className="absolute inset-0 -z-10" onClick={() => setModal({ open: false })} />
-  </div>
-)}
-
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12 sm:mb-14">
-          <Reveal>
-            <p className="text-xs font-bold tracking-[0.2em] uppercase text-teal-400 mb-3" style={{ fontFamily: "Syne, sans-serif" }}>
-              Portfolio
-            </p>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight"
-              style={{ fontFamily: "Syne, sans-serif" }}
-            >
-              Selected{" "}
-              <span className="bg-linear-to-r from-teal-400 via-violet-400 to-pink-400 bg-clip-text text-transparent">
-                work
-              </span>
-            </h2>
-          </Reveal>
-        </div>
-
-        {/* Category tabs */}
-        <Reveal delay={0.12}>
-          <div className="relative flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12">
-
-            {PORTFOLIO_CATS.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveTab(cat)}
-                className={`px-4 sm:px-5 py-2 rounded-full text-[11px] font-bold tracking-widest uppercase border transition-all duration-200 ${activeTab === cat
-                  ? "bg-teal-400 text-slate-950 border-teal-400 shadow-[0_0_20px_rgba(79,255,232,0.35)]"
-                  : "bg-white/3 border-white/8 text-slate-400 hover:border-teal-400/40 hover:text-teal-400"
-                  }`}
-                style={{ fontFamily: "Syne, sans-serif" }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </Reveal>
-
-        {/* Grid */}
-        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-
-          {filtered.map((item, i) => (
-            <PortfolioCard  openModal={setModal} key={item.title + i} item={item} delay={i * 0.07} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  const [activeTab, setActiveTab] = useState('All');
+  const [selected, setSelected] = useState(null);
+  const close = useCallback(() => setSelected(null), []);
+  const open = item => {
+    if (item.type === 'presentation') window.open(item.url, '_blank', 'noopener,noreferrer');
+    else setSelected(item);
+  };
+  const filtered = activeTab === 'All' ? PORTFOLIO_ITEMS : PORTFOLIO_ITEMS.filter(item => item.cat === activeTab);
+  return <section id="portfolio" className="work-section section-shell">
+    <div className="section-heading"><Reveal><p className="eyebrow">01 / SELECTED WORK</p><h2>Every frame.<br /><span className="muted-type">A reason to stay.</span></h2></Reveal><Reveal><p>A selection of video edits, visual identities, and creative work. Made with intention. Built for attention.</p></Reveal></div>
+    <div className="project-filters" aria-label="Filter selected work">{PORTFOLIO_CATS.map(cat => <button key={cat} aria-pressed={activeTab === cat} onClick={() => setActiveTab(cat)}>{cat}{activeTab === cat && <span aria-hidden="true"> ↗</span>}</button>)}</div>
+    <div className="project-gallery" aria-live="polite">{filtered.map((item,index) => <PortfolioCard key={`${item.title}-${item.sub}`} item={item} index={index} openModal={open} />)}</div>
+    {selected && <ProjectViewer item={selected} onClose={close} />}
+  </section>;
 }

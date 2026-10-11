@@ -1,5 +1,6 @@
-import { Reveal } from "../../App";
+import { Reveal } from "../Reveal";
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export default function TestiCard({ t, delay }) {
   const [lightbox, setLightbox] = useState(false);
@@ -7,6 +8,16 @@ export default function TestiCard({ t, delay }) {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
 
+  const dialogRef = useRef(null);
+  useEffect(() => {
+    if (!lightbox) return;
+    const previous = document.activeElement;
+    const overflow = document.body.style.overflow;
+    const dialog = dialogRef.current;
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+    return () => { dialog.close(); document.body.style.overflow = overflow; previous?.focus(); };
+  }, [lightbox]);
   const dragStart = useRef(null);
   const lastOffset = useRef({ x: 0, y: 0 });
   const lastDist = useRef(null);
@@ -104,16 +115,16 @@ export default function TestiCard({ t, delay }) {
 
   return (
     <>
-      {lightbox && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-2xl"
+      {lightbox && createPortal(
+        <dialog
+          ref={dialogRef} aria-label="Testimonial screenshot viewer" onCancel={() => setLightbox(false)} className="testimonial-dialog"
           onClick={() => setLightbox(false)}
         >
           {/* Controls */}
           <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
             <button
               onClick={(e) => { e.stopPropagation(); setScale((p) => Math.max(1, p - 0.5)); }}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center justify-center transition"
+              className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center justify-center transition"
             >−</button>
             <span
               className="text-xs text-slate-400 font-bold w-10 text-center"
@@ -123,16 +134,16 @@ export default function TestiCard({ t, delay }) {
             </span>
             <button
               onClick={(e) => { e.stopPropagation(); setScale((p) => Math.min(5, p + 0.5)); }}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center justify-center transition"
+              className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center justify-center transition"
             >+</button>
             <button
               onClick={(e) => { e.stopPropagation(); setScale(1); setOffset({ x: 0, y: 0 }); lastOffset.current = { x: 0, y: 0 }; }}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-xs text-slate-300 font-bold flex items-center justify-center transition"
+              className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-xs text-slate-300 font-bold flex items-center justify-center transition"
               style={{ fontFamily: "Syne, sans-serif" }}
             >↺</button>
             <button
               onClick={() => setLightbox(false)}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-red-500/40 text-white font-bold flex items-center justify-center transition"
+              className="w-11 h-11 rounded-full bg-white/10 hover:bg-red-500/40 text-white font-bold flex items-center justify-center transition"
             >✕</button>
           </div>
 
@@ -154,14 +165,14 @@ export default function TestiCard({ t, delay }) {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            style={{ cursor: scale > 1 ? (dragging ? "grabbing" : "grab") : "default" }}
+            style={{ touchAction: "none", cursor: scale > 1 ? (dragging ? "grabbing" : "grab") : "default" }}
           >
             <img
               ref={imgRef}
               src={t.screenshot}
               alt={`${t.name} testimonial screenshot`}
               draggable={false}
-              className="max-w-sm w-full rounded-2xl shadow-2xl select-none"
+              className="max-w-sm w-full max-h-[75dvh] object-contain rounded-2xl select-none"
               style={{
                 transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
                 transformOrigin: "center center",
@@ -169,7 +180,7 @@ export default function TestiCard({ t, delay }) {
               }}
             />
           </div>
-        </div>
+        </dialog>, document.body
       )}
 
       {/* Card — unchanged */}
@@ -183,13 +194,13 @@ export default function TestiCard({ t, delay }) {
 
           {t.screenshot && (
             <div
-              onClick={() => setLightbox(true)}
+              role="button" tabIndex={0} aria-label="View testimonial screenshot" onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setLightbox(true); } }} onClick={() => setLightbox(true)}
               className="relative mb-5 rounded-xl overflow-hidden border border-white/[0.07] cursor-zoom-in group/img"
             >
               <img
-                src={t.screenshot}
+                loading="lazy" decoding="async" src={t.screenshot}
                 alt={`${t.name} testimonial`}
-                className="w-full object-cover max-h-48 transition-transform duration-500 group-hover/img:scale-105"
+                width="800" height="384" className="w-full h-48 object-cover transition-transform duration-500 group-hover/img:scale-105"
               />
               <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 text-white text-xs font-bold tracking-widest uppercase bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full"

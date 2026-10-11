@@ -1,4 +1,4 @@
-import { Reveal, useInView } from "../../App";
+import { Reveal, useInView } from "../Reveal";
 import SkillCard from "./SkillCard";
 
 export default function Skills() {
@@ -44,7 +44,7 @@ export default function Skills() {
         {/* Grid */}
         <div
           ref={ref}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          className="expertise-grid"
         >
           {SKILLS.map((s, i) => (
             <SkillCard key={s.name} skill={s} visible={visible} delay={i * 0.06} />

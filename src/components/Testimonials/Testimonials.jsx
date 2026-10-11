@@ -1,4 +1,4 @@
-import { Reveal } from "../../App";
+import { Reveal } from "../Reveal";
 import TestiCard from "./TestiCard";
 
 
@@ -12,7 +12,7 @@ const TESTIMONIALS = [
   from: "from-red-500",
   to: "to-violet-600",
   text: "Working with this editor has been a game-changer. They put a lot of effort into every frame, and the quality is so high that I rarely need any corrections. They are quick, reliable, and consistently deliver great work. If you're looking for someone to get your project on board and moving fast, this is the person.",
-  screenshot: "/testimonials/gymstart.png",
+  screenshot: "/optimized/testimonial.webp",
   stars: 5,
 },
  {

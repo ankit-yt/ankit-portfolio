@@ -1,4 +1,4 @@
-import { Reveal } from "../../App";
+import { Reveal } from "../Reveal";
 import ServiceCard from "./ServiceCard";
 
 export default function Services() {
@@ -54,9 +54,9 @@ const SERVICES = [
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="services-list">
           {SERVICES.map((sv, i) => (
-            <ServiceCard key={sv.title} sv={sv} delay={i * 0.12} />
+            <ServiceCard key={sv.title} sv={sv} index={i} delay={i * 0.12} />
           ))}
         </div>
       </div>
