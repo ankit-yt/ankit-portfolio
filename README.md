@@ -1,5 +1,9 @@
 # React + Vite
 
+## MongoDB Atlas visitor counter
+
+See [ATLAS_SETUP.md](ATLAS_SETUP.md) for the server-only environment variables, Vercel deployment steps, counting rules, and local development instructions. Run `node --test tests/visits.test.js` to verify the API handler.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

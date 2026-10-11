@@ -281,6 +281,9 @@ main > section.scroll-reel { --reel-progress: 0; height: 340svh; padding: 0; max
 .cursor-arrow { stroke: #f3f0ff; stroke-width: 1.25; }
 .cursor-pink-accent { fill: none; stroke: #ff3c9e; stroke-width: 1.4; stroke-linecap: round; filter: drop-shadow(0 0 2px #ff3c9e); }
 .editor-cursor[data-interactive="true"] .cursor-neon-halo { stroke: #9178ff; }
+.site-footer .visit-counter { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: .02em; white-space: nowrap; }
+.visit-counter strong { color: #efedff; font-weight: 600; }
+.visit-counter-dot { width: 5px; height: 5px; background: #70f5bd; border-radius: 50%; }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
   .editor-cursor-enabled, .editor-cursor-enabled * { cursor: none !important; }
   .editor-cursor-enabled input, .editor-cursor-enabled textarea { cursor: text !important; }
