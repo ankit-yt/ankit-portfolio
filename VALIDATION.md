@@ -44,3 +44,16 @@ Browser scripts and screenshots are stored in the ignored .qa.local directory. D
 - Optimized the transparent portrait to a 64 KB WebP and hosted the condensed display font locally.
 - Browser checks passed at 320, 390, 768, 844, and 1440 px: portrait decoding, title fit, no horizontal overflow, work link navigation, and no uncaught page exceptions. Reviewed desktop and phone screenshots.
 - Production build passed. Checks use desktop Chrome emulation; physical phones were not tested.
+
+## Liquid text and editing cursor revision
+
+- Replaced the blurry canvas trail with SVG displacement applied to hovered text for 520 milliseconds, then restored its rendering.
+- Added a timeline playhead cursor with a green interactive state. Touch and reduced-motion modes retain normal behavior.
+- Browser checks passed for displacement, cleanup, cursor visibility, interactive state, reduced motion, mobile touch fallback, and no uncaught exceptions.
+- Production build and targeted cursor lint passed. Repository lint still reports existing errors in Reveal.jsx and Testimonials/TestiCard.jsx.
+
+## Website cursor-path distortion
+
+- Supersedes the text-only hover effect with a localized displacement field across visible page sections, the header, and footer. The field follows recent pointer positions and fades within 800 ms.
+- Replaced the playhead cursor with a sharp outlined arrow and pink interactive state.
+- Production build, targeted component lint, and browser checks passed for active section filters, idle restoration, navigation, reduced motion, touch fallback, and no browser exceptions. Reviewed the active distortion screenshot in desktop Chrome.
