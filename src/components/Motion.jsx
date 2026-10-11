@@ -9,10 +9,12 @@ export default function Motion() {
       if (!target?.isConnected) return;
       const rect = target.getBoundingClientRect();
       const x = (eventX-rect.left)/rect.width-.5, y = (eventY-rect.top)/rect.height-.5;
+      target.style.setProperty('--glow-x', `${eventX-rect.left}px`);
+      target.style.setProperty('--glow-y', `${eventY-rect.top}px`);
       if (target.classList.contains('magnetic')) { target.style.setProperty('--mx', `${x*10}px`); target.style.setProperty('--my', `${y*8}px`); }
       else { target.style.setProperty('--rx', `${-y*3}deg`); target.style.setProperty('--ry', `${x*3}deg`); }
     };
-    const reset = () => { if (target) { for (const property of ['--mx','--my','--rx','--ry']) target.style.removeProperty(property); } target = null; cancelAnimationFrame(frame); frame = 0; };
+    const reset = () => { if (target) { for (const property of ['--mx','--my','--rx','--ry','--glow-x','--glow-y']) target.style.removeProperty(property); } target = null; cancelAnimationFrame(frame); frame = 0; };
     const move = event => {
       if (!fine.matches || reduced.matches) return;
       const next = event.target.closest('.magnetic, .project-card');

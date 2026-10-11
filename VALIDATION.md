@@ -1,8 +1,16 @@
-﻿# Portfolio verification
+# Portfolio verification
 
 Updated 2026-10-11. Local React/Vite checkout; no deployment performed.
 
-## Current revision
+## Latest cursor update
+
+- Removed the hero chrome sculpture from the rendered page; its WebGL module is no longer part of the production output.
+- Added a bounded Canvas 2D liquid cursor trail with reused glow textures, a maximum of 42 trail points, and a 1.7-second lifetime. Its animation loop stops when the trail fades; it clears on blur, hidden tabs, and pointer exit.
+- Added button and project-frame glow, including a pointer-positioned frame highlight.
+- Touch and reduced-motion modes disable the cursor canvas. Native cursor behavior and pointer events remain intact.
+- Production build passed. Chrome checks verified a visible trail, complete fade to transparency, link click-through, project hover glow, removed sculpture, and no horizontal overflow in mobile/reduced-motion layouts. No page exceptions were recorded in the desktop check.
+
+## Previous revision (before cursor replacement)
 
 - Replaced decorative Unicode glyphs and emoji with a shared SVG icon component, including navigation, actions, media controls, skills, services, and ratings.
 - Updated the palette to obsidian, electric turquoise, coral, and violet.
@@ -28,3 +36,11 @@ Updated 2026-10-11. Local React/Vite checkout; no deployment performed.
 Physical iOS/Android devices, Safari, Lighthouse, throttled connections, and long-duration memory profiling have not been tested. Prior initial-load LCP/CLS samples belong to the earlier design and should not be treated as measurements of this revision. The actual Runway clip remains pending account connection and generation.
 
 Browser scripts and screenshots are stored in the ignored .qa.local directory. Display-image optimizations, locally hosted fonts, and original portfolio video URLs are preserved.
+
+## Reference hero revision
+
+- Added an overlapping portrait, oversized PORT/FOLIO typography, editor selection details, and a subtle grid inspired by the supplied layout.
+- Applied the second reference's near-black, pink, blue, and green palette to accents and the cursor trail.
+- Optimized the transparent portrait to a 64 KB WebP and hosted the condensed display font locally.
+- Browser checks passed at 320, 390, 768, 844, and 1440 px: portrait decoding, title fit, no horizontal overflow, work link navigation, and no uncaught page exceptions. Reviewed desktop and phone screenshots.
+- Production build passed. Checks use desktop Chrome emulation; physical phones were not tested.
