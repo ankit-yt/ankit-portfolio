@@ -13,6 +13,7 @@ const TESTIMONIALS = [
   to: "to-violet-600",
   text: "Working with this editor has been a game-changer. They put a lot of effort into every frame, and the quality is so high that I rarely need any corrections. They are quick, reliable, and consistently deliver great work. If you're looking for someone to get your project on board and moving fast, this is the person.",
   screenshot: "/optimized/testimonial.webp",
+  screenshotFallback: "/testimonials/gymstart.png",
   stars: 5,
 },
  {

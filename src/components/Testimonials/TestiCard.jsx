@@ -4,6 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
 export default function TestiCard({ t, delay }) {
+  const handleImageError = (event) => {
+    const image = event.currentTarget;
+    if (!t.screenshotFallback || image.dataset.fallbackApplied) return;
+    image.dataset.fallbackApplied = 'true';
+    image.src = t.screenshotFallback;
+  };
   const [lightbox, setLightbox] = useState(false);
   const [scale, setScale] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -171,9 +177,10 @@ export default function TestiCard({ t, delay }) {
             <img
               ref={imgRef}
               src={t.screenshot}
+              onError={handleImageError}
               alt={`${t.name} testimonial screenshot`}
               draggable={false}
-              className="max-w-sm w-full max-h-[75dvh] object-contain rounded-2xl select-none"
+              className="testimonial-viewer-image select-none"
               style={{
                 transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`,
                 transformOrigin: "center center",
@@ -194,14 +201,15 @@ export default function TestiCard({ t, delay }) {
           </div>
 
           {t.screenshot && (
-            <div
-              role="button" tabIndex={0} aria-label="View testimonial screenshot" onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); setLightbox(true); } }} onClick={() => setLightbox(true)}
-              className="relative mb-5 rounded-xl overflow-hidden border border-white/[0.07] cursor-zoom-in group/img"
+            <button
+              type="button" aria-label="View testimonial screenshot" onClick={() => setLightbox(true)}
+              className="testimonial-preview relative mb-5 rounded-xl overflow-hidden border border-white/[0.07] cursor-zoom-in group/img"
             >
               <img
                 loading="lazy" decoding="async" src={t.screenshot}
+                onError={handleImageError}
                 alt={`${t.name} testimonial`}
-                width="800" height="384" className="w-full h-48 object-cover transition-transform duration-500 group-hover/img:scale-105"
+                width="1205" height="562" className="testimonial-preview-image"
               />
               <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-all duration-300 flex items-center justify-center">
                 <span className="opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 text-white text-xs font-bold tracking-widest uppercase bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full"
@@ -209,7 +217,7 @@ export default function TestiCard({ t, delay }) {
                   View
                 </span>
               </div>
-            </div>
+            </button>
           )}
 
           <p className="text-slate-400 text-sm leading-relaxed flex-1 italic mb-6">"{t.text}"</p>
