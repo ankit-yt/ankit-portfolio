@@ -32,7 +32,7 @@ void main() {
   float rimlight = pow(max(0.,dot(r,normalize(vec3(.8,-.2,.5)))),32.);
   float lower = smoothstep(-.9,-.55,r.y)*(1.-smoothstep(-.35,-.12,r.y));
   float fresnel = pow(1.-max(0.,dot(n,view)),3.);
-  vec3 color = vec3(.025,.035,.055)+vec3(.75,.82,.96)*strip+vec3(.95)*softbox*1.5+vec3(.48,.55,.85)*rimlight+vec3(.36,.4,.5)*lower+vec3(.22,.27,.39)*fresnel;
+  vec3 color = vec3(.025,.035,.055)+vec3(.45,1.,.86)*strip+vec3(.95)*softbox*1.5+vec3(1.,.24,.09)*rimlight+vec3(.08,.48,.42)*lower+vec3(.12,.38,.34)*fresnel;
   color += vec3(.09,.1,.13)*max(0.,n.y);
   gl_FragColor = vec4(pow(color,vec3(.8)),1.);
 }`;
@@ -92,12 +92,13 @@ export function createChromeRenderer(canvas, root) {
   const render = (time) => {
     frame = 0;
     if (!visible || document.hidden || motion.matches || stopped || lost) { previous = lastTick = 0; return; }
+    if (coarse.matches && lastTick && time-lastTick < 32) { frame = requestAnimationFrame(render); return; }
     const delta = lastTick ? time-lastTick : 16.7;
     lastTick = time; activeTime += Math.min(delta, 50)/1000;
-    if (previous && !coarse.matches) {
+    if (previous) {
       elapsed += time-previous; samples++;
       if (samples >= 90) {
-        slowWindows = elapsed/samples > 27 ? slowWindows+1 : 0;
+        slowWindows = elapsed/samples > (coarse.matches ? 47 : 27) ? slowWindows+1 : 0;
         samples = elapsed = 0;
         if (slowWindows >= 2) {
           slowWindows = 0;
@@ -112,8 +113,8 @@ export function createChromeRenderer(canvas, root) {
     gl.uniform1f(locations.time,activeTime); gl.uniform2f(locations.pointer,x,y);
     gl.drawElements(gl.TRIANGLES,count,gl.UNSIGNED_SHORT,0);
     root.dataset.render = 'webgl';
-    // On touch screens render once, then only on resize/visibility changes.
-    if (!coarse.matches && !frame) frame = requestAnimationFrame(render);
+    // Touch devices animate at 30 FPS with the smaller mesh and resolution cap.
+    if (!frame) frame = requestAnimationFrame(render);
   };
   function start() { if (!frame && !stopped && !lost && visible && !document.hidden && !motion.matches) frame = requestAnimationFrame(render); }
   const visibility = () => { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; previous = lastTick = 0; } else start(); };

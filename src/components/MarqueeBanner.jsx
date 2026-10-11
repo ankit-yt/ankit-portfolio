@@ -1,3 +1,4 @@
+import Icon from './Icon';
 export default function MarqueeBannere() {
     const MARQUEE_ITEMS = [
   "Video Editing", "Poster Design", "PPT Design",
@@ -19,7 +20,7 @@ export default function MarqueeBannere() {
             style={{ fontFamily: "Syne, sans-serif" }}
           >
             {t}
-            <span className="ml-8 text-teal-500">✦</span>
+            <span className="ml-8 text-teal-500"><Icon name="sparkles" size={16} /></span>
           </span>
         ))}
       </div>

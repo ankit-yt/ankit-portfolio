@@ -1,3 +1,4 @@
+import Icon from '../Icon';
 import { Reveal } from "../Reveal";
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -22,7 +23,7 @@ export default function TestiCard({ t, delay }) {
   const lastOffset = useRef({ x: 0, y: 0 });
   const lastDist = useRef(null);
   const imgRef = useRef(null);
-  const containerRef = useRef(null); // 👈 NEW
+  const containerRef = useRef(null);
 
   // Reset zoom/pan when lightbox closes
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function TestiCard({ t, delay }) {
     }
   }, [lightbox]);
 
-  // 👇 NEW — attach wheel + pinch as non-passive to avoid preventDefault error
+  // attach wheel + pinch as non-passive to avoid preventDefault error
   useEffect(() => {
     const el = containerRef.current;
     if (!el || !lightbox) return;
@@ -85,7 +86,7 @@ export default function TestiCard({ t, delay }) {
 
   const handleMouseUp = () => setDragging(false);
 
-  // 👇 UPDATED — single finger drag only, pinch handled natively above
+  // single finger drag only, pinch handled natively above
   const handleTouchMove = (e) => {
     if (e.touches.length === 1 && dragging) {
       const newOffset = {
@@ -125,7 +126,7 @@ export default function TestiCard({ t, delay }) {
             <button
               onClick={(e) => { e.stopPropagation(); setScale((p) => Math.max(1, p - 0.5)); }}
               className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center justify-center transition"
-            >−</button>
+             aria-label="Zoom out"><Icon name="minus" /></button>
             <span
               className="text-xs text-slate-400 font-bold w-10 text-center"
               style={{ fontFamily: "Syne, sans-serif" }}
@@ -135,16 +136,16 @@ export default function TestiCard({ t, delay }) {
             <button
               onClick={(e) => { e.stopPropagation(); setScale((p) => Math.min(5, p + 0.5)); }}
               className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-lg flex items-center justify-center transition"
-            >+</button>
+             aria-label="Zoom in"><Icon name="plus" /></button>
             <button
               onClick={(e) => { e.stopPropagation(); setScale(1); setOffset({ x: 0, y: 0 }); lastOffset.current = { x: 0, y: 0 }; }}
               className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-xs text-slate-300 font-bold flex items-center justify-center transition"
               style={{ fontFamily: "Syne, sans-serif" }}
-            >↺</button>
+             aria-label="Reset zoom"><Icon name="reset" /></button>
             <button
               onClick={() => setLightbox(false)}
               className="w-11 h-11 rounded-full bg-white/10 hover:bg-red-500/40 text-white font-bold flex items-center justify-center transition"
-            >✕</button>
+             aria-label="Close screenshot viewer"><Icon name="close" /></button>
           </div>
 
           {/* Hint */}
@@ -153,7 +154,7 @@ export default function TestiCard({ t, delay }) {
             Scroll or pinch to zoom · Drag to pan
           </p>
 
-          {/* 👇 UPDATED — ref added, onWheel removed */}
+          {/* ref added, onWheel removed */}
           <div
             ref={containerRef}
             className="overflow-hidden w-full h-full flex items-center justify-center"
@@ -188,7 +189,7 @@ export default function TestiCard({ t, delay }) {
         <div className="group bg-white/3 border border-white/[0.07] rounded-2xl p-7 sm:p-8 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(79,255,232,0.08)] hover:border-teal-400/20 transition-all duration-300 h-full flex flex-col">
           <div className="flex gap-1 mb-4">
             {Array.from({ length: t.stars }).map((_, k) => (
-              <span key={k} className="text-amber-400 text-sm">★</span>
+              <span key={k} className="text-amber-400 text-sm"><Icon name="star" size={16} /></span>
             ))}
           </div>
 

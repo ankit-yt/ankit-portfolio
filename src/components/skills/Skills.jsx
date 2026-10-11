@@ -4,14 +4,14 @@ import SkillCard from "./SkillCard";
 export default function Skills() {
   const [ref, visible] = useInView();
   const SKILLS = [
-  { name: "Video Editing", sub: "CapCut PC", icon: "🎬", level: 95 },
-  { name: "Short Form Content", sub: "Reels & Shorts", icon: "⚡", level: 92 },
-  { name: "Instagram Reels", sub: "Engagement edits", icon: "📱", level: 90 },
-  { name: "YouTube Shorts", sub: "Viral formats", icon: "▶️", level: 88 },
-  { name: "Poster Design", sub: "Visual identity", icon: "🎨", level: 85 },
-  { name: "Social Graphics", sub: "Brand assets", icon: "✦", level: 87 },
-  { name: "PPT Design", sub: "Pitch decks", icon: "📊", level: 83 },
-  { name: "Minimal Design", sub: "Clean aesthetic", icon: "◻", level: 93 },
+  { name: "Video Editing", sub: "CapCut PC", icon: "film", level: 95 },
+  { name: "Short Form Content", sub: "Reels & Shorts", icon: "cut", level: 92 },
+  { name: "Instagram Reels", sub: "Engagement edits", icon: "phone", level: 90 },
+  { name: "YouTube Shorts", sub: "Viral formats", icon: "play", level: 88 },
+  { name: "Poster Design", sub: "Visual identity", icon: "brush", level: 85 },
+  { name: "Social Graphics", sub: "Brand assets", icon: "layers", level: 87 },
+  { name: "PPT Design", sub: "Pitch decks", icon: "presentation", level: 83 },
+  { name: "Minimal Design", sub: "Clean aesthetic", icon: "square", level: 93 },
 ];
 
 

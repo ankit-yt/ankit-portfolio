@@ -1,3 +1,4 @@
+import Icon from './Icon';
 import { useEffect, useRef, useState } from 'react';
 
 const links = ['About', 'Skills', 'Services', 'Portfolio', 'Testimonials', 'Contact'];
@@ -18,9 +19,9 @@ export default function Navbar() {
   return <header className="site-header">
     <nav aria-label="Main navigation" className="site-nav">
       <a href="#hero" className="wordmark" onClick={() => setOpen(false)}>AJ<span>.</span></a>
-      <div className="desktop-nav">{links.map(link => <a href={`#${link.toLowerCase()}`} key={link}>{link === 'Testimonials' ? 'Feedback' : link}</a>)}<a className="nav-cta" href="#contact">Let’s talk ↗</a></div>
-      <button ref={toggle} className="menu-toggle" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}>{open ? '✕' : '☰'}</button>
+      <div className="desktop-nav">{links.map(link => <a href={`#${link.toLowerCase()}`} key={link}>{link === 'Testimonials' ? 'Feedback' : link}</a>)}<a className="nav-cta" href="#contact">Let’s talk <Icon name="arrow-up-right" /></a></div>
+      <button ref={toggle} className="menu-toggle" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}><Icon name={open ? "close" : "menu"} size={24} /></button>
     </nav>
-    {open && <div id="mobile-menu" className="mobile-nav">{links.map(link => <a key={link} href={`#${link.toLowerCase()}`} onClick={() => { setOpen(false); toggle.current?.focus(); }}>{link}<span aria-hidden="true">↗</span></a>)}</div>}
+    {open && <div id="mobile-menu" className="mobile-nav">{links.map(link => <a key={link} href={`#${link.toLowerCase()}`} onClick={() => { setOpen(false); toggle.current?.focus(); }}>{link}<span aria-hidden="true"><Icon name="arrow-up-right" /></span></a>)}</div>}
   </header>;
 }

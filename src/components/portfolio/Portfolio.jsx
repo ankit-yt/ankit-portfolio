@@ -1,3 +1,4 @@
+import Icon from '../Icon';
 import { useCallback, useState } from 'react';
 import PortfolioCard from './PortfolioCard';
 import ProjectViewer from './ProjectViewer';
@@ -15,7 +16,6 @@ const PORTFOLIO_ITEMS = [
   badge_bg:"bg-green-400",
   bg: "from-teal-900/60 to-slate-950",
   accent: "text-teal-400",
-  emoji: "💪",
 },
   {
     cat: "Video Edits",
@@ -27,7 +27,6 @@ const PORTFOLIO_ITEMS = [
     position: "100%_20%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
-    emoji: "▶",
   },
   {
     cat: "Video Edits",
@@ -38,7 +37,6 @@ const PORTFOLIO_ITEMS = [
     thumbnail: "/optimized/bullrun.webp",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
-    emoji: "▶",
   },
   {
     cat: "Video Edits",
@@ -50,7 +48,6 @@ const PORTFOLIO_ITEMS = [
     position: "100%_20%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
-    emoji: "▶",
   },
   {
     cat: "Video Edits",
@@ -62,7 +59,6 @@ const PORTFOLIO_ITEMS = [
     position: "100%_50%",
     bg: "from-teal-900/60 to-slate-950",
     accent: "text-teal-400",
-    emoji: "▶",
   },
 
   {
@@ -74,7 +70,6 @@ const PORTFOLIO_ITEMS = [
     thumbnail: "/optimized/presentation.webp",
     bg: "from-pink-900/60 to-slate-950",
     accent: "text-pink-400",
-    emoji: "✦",
   },
 
   {
@@ -85,7 +80,6 @@ const PORTFOLIO_ITEMS = [
   thumbnail: "/optimized/placement.webp",
   bg: "from-red-900/60 to-slate-950",
   accent: "text-red-400",
-  emoji: "✦"
 },
 
   {
@@ -95,7 +89,6 @@ const PORTFOLIO_ITEMS = [
     sub: "Social Poster",
     bg: "from-violet-900/60 to-slate-950",
     accent: "text-violet-400",
-    emoji: "✦",
   },
 ];
 
@@ -110,7 +103,7 @@ export default function Portfolio() {
   const filtered = activeTab === 'All' ? PORTFOLIO_ITEMS : PORTFOLIO_ITEMS.filter(item => item.cat === activeTab);
   return <section id="portfolio" className="work-section section-shell">
     <div className="section-heading"><Reveal><p className="eyebrow">01 / SELECTED WORK</p><h2>Every frame.<br /><span className="muted-type">A reason to stay.</span></h2></Reveal><Reveal><p>A selection of video edits, visual identities, and creative work. Made with intention. Built for attention.</p></Reveal></div>
-    <div className="project-filters" aria-label="Filter selected work">{PORTFOLIO_CATS.map(cat => <button key={cat} aria-pressed={activeTab === cat} onClick={() => setActiveTab(cat)}>{cat}{activeTab === cat && <span aria-hidden="true"> ↗</span>}</button>)}</div>
+    <div className="project-filters" aria-label="Filter selected work">{PORTFOLIO_CATS.map(cat => <button key={cat} aria-pressed={activeTab === cat} onClick={() => setActiveTab(cat)}>{cat}{activeTab === cat && <span aria-hidden="true"> <Icon name="arrow-up-right" /></span>}</button>)}</div>
     <div className="project-gallery" aria-live="polite">{filtered.map((item,index) => <PortfolioCard key={`${item.title}-${item.sub}`} item={item} index={index} openModal={open} />)}</div>
     {selected && <ProjectViewer item={selected} onClose={close} />}
   </section>;

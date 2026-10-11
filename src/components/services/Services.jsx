@@ -5,7 +5,7 @@ export default function Services() {
     
 const SERVICES = [
   {
-    icon: "🎬",
+    icon: "film",
     title: "Short Form Video Editing",
     glow: "from-teal-400/20 to-transparent",
     accent: "text-teal-400",
@@ -14,7 +14,7 @@ const SERVICES = [
     desc: "Crisp, engaging short-form content optimised for maximum retention and algorithmic reach.",
   },
   {
-    icon: "🎨",
+    icon: "brush",
     title: "Poster Design",
     glow: "from-violet-400/20 to-transparent",
     accent: "text-violet-400",
@@ -23,7 +23,7 @@ const SERVICES = [
     desc: "Eye-catching visuals that stop the scroll and communicate your brand instantly.",
   },
   {
-    icon: "📊",
+    icon: "presentation",
     title: "Presentation Design",
     glow: "from-pink-400/20 to-transparent",
     accent: "text-pink-400",
